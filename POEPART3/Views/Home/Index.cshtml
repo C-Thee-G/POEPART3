@@ -1,0 +1,87 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor Accessor;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    @{
+        if (@Accessor.HttpContext.Request.Cookies["Authenticated"] != null && @Accessor.HttpContext.Request.Cookies["Authenticated"].ToString().Equals("True"))
+        {
+            <h2>Money Available: R @ViewBag.moneyLeft</h2>
+            <div class="container">
+                <div class="row justify-content-around">
+
+                    <div class="circle-button m-5" style="background: linear-gradient(to bottom, #F59E0B, red);">
+                        <a asp-action="MakeAMoneyAllocation" class="btn btn-outline-light">Allocate Money</a>
+                    </div>
+
+                    <div class="circle-button m-5" style="background: linear-gradient(to bottom, #F59E0B, red);">
+                        <a asp-action="MakeAGoodsAllocation" class="btn btn-outline-light">Allocate Goods</a>
+                    </div>
+
+                    <div class="circle-button center-button m-5" style="background: linear-gradient(to bottom, #F77B00, red);">
+                        <a asp-action="MakeAPurchase" class="btn btn-outline-light">Purchase Goods</a>
+                    </div>
+
+                    <div class="circle-button m-5" style="background: linear-gradient(to bottom, #F59E0B, red);">
+                        <a asp-action="ViewDonationsOfGoods" class="btn btn-outline-light">Goods Donations</a>
+                    </div>
+
+                    <div class="circle-button m-5" style="background: linear-gradient(to bottom, #F59E0B, red);">
+                        <a asp-action="ViewActiveDisasters" class="btn btn-outline-light">Active Disasters</a>
+                    </div>
+
+                    <div class="circle-button m-5" style="background: linear-gradient(to bottom, #F59E0B, red);">
+                        <a asp-action="AddANewCategoryOfGoods" class="btn btn-outline-light">Add Categories</a>
+                    </div>
+
+                    <div class="circle-button m-5" style="background: linear-gradient(to bottom, #F59E0B,red);">
+                        <a asp-action="MakeAMoneyDonation" class="btn btn-outline-light">Donate Money</a>
+                    </div>
+
+                    <div class="circle-button m-5" style="background: linear-gradient(to bottom, #F59E0B, red);">
+                        <a asp-action="MakeAGoodsDonation" class="btn btn-outline-light">Donate Goods</a>
+                    </div>
+
+                    <div class="circle-button m-5" style="background: linear-gradient(to bottom, #F59E0B,red);">
+                        <a asp-action="AddANewActiveDisaster" class="btn btn-outline-light">Add Disaster</a>
+                    </div>
+
+                </div>
+            </div>
+        }
+        else
+        {
+            <a class="btn w-60" style="background-color:red" asp-action="AuthorisedUsersLogin">Login</a>
+        }
+    }
+    <a asp-action="publicInfoMoney" type="button" class="btn w-30 mt-4" style="background-color:rebeccapurple">View Money Allocated to Disasters</a>
+</div>
+
+<style>
+    .circle-button {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background 0.3s;
+    }
+
+        .circle-button a {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .circle-button:hover {
+            transform: scale(1.1);
+        }
+
+    .center-button {
+        background: red; /* Orange color for the center button */
+    }
+</style>
